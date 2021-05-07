@@ -23,7 +23,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  equatable: ^2.0.0
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.0
+  provider: ^5.0.0
+  get_it: ^6.1.1
+  json_annotation: ^4.0.1
+  cached_network_image: ^3.0.0
+  dio: ^4.0.0
+  retrofit: 2.0.0-beta1
+  floor: ^1.0.1
 
+  path_provider: ^2.0.1
+  path:
+  url_launcher: ^6.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -34,7 +47,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lorem: ^2.0.0
   animations: ^2.0.0
-  equatable: ^2.0.0
+  build_runner:
+  json_serializable: ^4.1.1
+  floor_generator: ^1.0.0
+  retrofit_generator: 2.0.0-beta3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
