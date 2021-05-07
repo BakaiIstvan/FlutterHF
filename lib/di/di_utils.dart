@@ -5,18 +5,34 @@ import 'package:nba_app/data/network/dio_nba_service.dart';
 import 'package:nba_app/data/network/nba_api.dart';
 import 'package:nba_app/domain/interactor/player_interactor.dart';
 import 'package:nba_app/domain/interactor/team_interactor.dart';
+import 'package:nba_app/ui/teams/team_list_bloc.dart';
+import 'package:nba_app/ui/details/team_details_bloc.dart';
 
 final injector = GetIt.instance;
 
 void initDependencies() {
-  injector.registerSingleton<NbaApi>(NbaService());
-
-  injector.registerSingleton(
-    TeamNetworkDataSource(injector<NbaApi>()),
+  injector.registerSingletonAsync<NbaApi>(
+        () async {
+          return NbaService();
+        },
   );
 
-  injector.registerSingleton(
-    PlayerNetworkDataSource(injector<NbaApi>()),
+  injector.registerSingletonAsync(
+        () async {
+      return TeamNetworkDataSource(
+        injector<NbaApi>(),
+      );
+    },
+    dependsOn: [NbaApi],
+  );
+
+  injector.registerSingletonAsync(
+          () async {
+        return PlayerNetworkDataSource(
+          injector<NbaApi>(),
+        );
+      },
+      dependsOn: [NbaApi],
   );
 
   injector.registerSingletonAsync(
@@ -35,5 +51,17 @@ void initDependencies() {
         );
       },
     dependsOn: [PlayerNetworkDataSource],
+  );
+
+  injector.registerFactory(
+        () => TeamListBloc(
+      injector<TeamInteractor>(),
+    ),
+  );
+
+  injector.registerFactory(
+        () => TeamDetailsBloc(
+      injector<TeamInteractor>(),
+    ),
   );
 }

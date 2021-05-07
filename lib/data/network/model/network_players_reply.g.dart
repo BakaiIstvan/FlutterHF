@@ -8,7 +8,7 @@ part of 'network_players_reply.dart';
 
 NetworkPlayersReply _$NetworkPlayersReplyFromJson(Map<String, dynamic> json) {
   return NetworkPlayersReply(
-    (json['results'] as List<dynamic>)
+    (json['data'] as List<dynamic>)
         .map((e) => NetworkPlayer.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
@@ -17,5 +17,5 @@ NetworkPlayersReply _$NetworkPlayersReplyFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$NetworkPlayersReplyToJson(
         NetworkPlayersReply instance) =>
     <String, dynamic>{
-      'results': instance.results,
+      'data': instance.data,
     };

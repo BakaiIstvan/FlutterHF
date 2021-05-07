@@ -13,7 +13,7 @@ class PlayerNetworkDataSource {
 
     if (networkResponse.response.statusCode != 200) return null;
 
-    final networkPlayers = networkResponse.data.results;
+    final networkPlayers = networkResponse.data.data;
 
     return networkPlayers.map((player) => player.toDomainModel()).toList();
   }

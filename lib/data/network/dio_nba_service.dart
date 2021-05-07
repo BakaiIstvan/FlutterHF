@@ -17,7 +17,6 @@ abstract class NbaService implements NbaApi {
     _dio.interceptors.add(
         InterceptorsWrapper(
             onRequest: (request, handler) {
-              request.queryParameters["api-key"] = "Ow3X9MSWU65uuoO20PUewGB0LrBzb3Iz";
               handler.next(request);
             }
         )

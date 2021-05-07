@@ -7,10 +7,10 @@ part 'network_players_reply.g.dart';
 @immutable
 @JsonSerializable()
 class NetworkPlayersReply {
-  final List<NetworkPlayer> results;
+  final List<NetworkPlayer> data;
 
   NetworkPlayersReply(
-      this.results,
+      this.data,
       );
 
   static const fromJsonFactory = _$NetworkPlayersReplyFromJson;
