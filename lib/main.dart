@@ -21,7 +21,7 @@ class NbaApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter NBA App',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.purple,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             home: TeamListPage(),
