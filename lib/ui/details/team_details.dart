@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nba_app/di/di_utils.dart';
 import 'package:nba_app/ui/details/team_details_event.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'team_details_bloc.dart';
 import 'team_details_state.dart';
@@ -29,7 +27,7 @@ class TeamDetails extends StatelessWidget {
             final team = state.team;
             return Scaffold(
               appBar: AppBar(
-                title: Text("Team details"),
+                title: Text(team.name),
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -51,7 +49,11 @@ class TeamDetails extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(team.abbreviation),
+                      child: Text(team.conference),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Text(team.city),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -67,7 +69,7 @@ class TeamDetails extends StatelessWidget {
 
           return Center(
             child: Text(
-              "Something went wrong while retrieving Article with id $teamId",
+              "Something went wrong while retrieving Team with id $teamId",
             ),
           );
         },

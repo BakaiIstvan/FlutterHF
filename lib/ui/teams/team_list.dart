@@ -7,12 +7,43 @@ import 'package:nba_app/ui/teams/team_list_state.dart';
 import 'package:nba_app/ui/teams/content/team_list_content.dart';
 import 'package:nba_app/utils.dart';
 
-class TeamListPage extends StatelessWidget {
+class TeamListPage extends StatefulWidget {
+  @override
+  _TeamListPage createState() => _TeamListPage();
+}
+
+class _TeamListPage extends State<TeamListPage> {
+  bool western = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("NBA Teams"),
+        actions: [
+          BlocProvider(
+            create: (context) => injector<TeamListBloc>(),
+            child: BlocBuilder<TeamListBloc, TeamListState>(
+              builder: (context, state) {
+                return TextButton(
+                  child: western ? Text('Western Conference') : Text(
+                      'Eastern Conference'),
+                  onPressed: () {
+                    setState(() {
+                      western = !western;
+                    });
+                    BlocProvider.of<TeamListBloc>(context)
+                        .add(RefreshTeamsEvent(western));
+                  },
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (context) => injector<TeamListBloc>(),
@@ -28,12 +59,12 @@ class TeamListPage extends StatelessWidget {
             builder: (context, state) {
               if (state is Loading) {
                 BlocProvider.of<TeamListBloc>(context)
-                    .add(LoadTeamsEvent());
+                    .add(LoadTeamsEvent(western));
                 return TeamListLoading();
               }
 
               if (state is Content) {
-                return TeamListContent(state);
+                return TeamListContent(state, western);
               }
 
               return Center(

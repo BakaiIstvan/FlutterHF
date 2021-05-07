@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nba_app/main.dart';
@@ -10,18 +9,20 @@ import 'package:nba_app/ui/teams/team_list_state.dart';
 
 class TeamListContent extends StatefulWidget {
   final Content state;
+  final bool western;
 
-  TeamListContent(this.state);
+  TeamListContent(this.state, this.western);
 
   @override
-  _TeamListContentState createState() => _TeamListContentState(state);
+  _TeamListContentState createState() => _TeamListContentState(state, western);
 }
 
 class _TeamListContentState extends State<TeamListContent> {
   Content state;
+  bool western;
   late Completer _refreshCompleter;
 
-  _TeamListContentState(this.state);
+  _TeamListContentState(this.state, this.western);
 
   @override
   void initState() {
@@ -40,7 +41,7 @@ class _TeamListContentState extends State<TeamListContent> {
       },
       child: RefreshIndicator(
         onRefresh: () async {
-          BlocProvider.of<TeamListBloc>(context).add(RefreshTeamsEvent());
+          BlocProvider.of<TeamListBloc>(context).add(RefreshTeamsEvent(western));
           return _refreshCompleter.future;
         },
         child: ListView.builder(
@@ -77,7 +78,7 @@ class _TeamListContentState extends State<TeamListContent> {
                       children: [
                         Flexible(
                           child: Text(
-                            item.abbreviation,
+                            item.conference,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
