@@ -22,7 +22,7 @@ class StockPhoto extends Equatable {
   final double rating;
 
   StockPhoto._generate(this.id)
-      : this.url = "https://picsum.photos/600/400?$id",
+      : this.url = "https://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/lal.png",
         this.title = lorem(paragraphs: 1, words: 2),
         this.description = lorem(paragraphs: 2, words: 40),
         this.rating = Random().nextDouble() * 5;
