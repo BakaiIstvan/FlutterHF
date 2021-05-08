@@ -8,7 +8,7 @@ import 'package:retrofit/retrofit.dart';
 
 abstract class NbaApi {
   Future<HttpResponse<NetworkTeamsReply>> getTeams();
-  Future<HttpResponse<NetworkPlayersReply>> getPlayers();
+  Future<HttpResponse<NetworkPlayersReply>> getPlayers(int per_page, int page);
   Future<HttpResponse<NetworkTeam>> getSpecificTeam(int id);
   Future<HttpResponse<NetworkPlayer>> getSpecificPlayer(int id);
 }

@@ -15,11 +15,11 @@ class NetworkPlayer {
   final String lastName;
   final String position;
   @JsonKey(name: "height_feet")
-  final int heightFeet;
+  final int? heightFeet;
   @JsonKey(name: "height_inches")
-  final int heightInches;
+  final int? heightInches;
   @JsonKey(name: "weight_pounds")
-  final int weightPounds;
+  final int? weightPounds;
   final NetworkTeam team;
 
   NetworkPlayer(

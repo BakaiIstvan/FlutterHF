@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class Team extends Equatable {
+class Team extends Equatable implements Comparable {
   final int id;
   final String abbreviation;
   final String city;
@@ -56,4 +56,13 @@ class Team extends Equatable {
     name,
     url,
   ];
+
+  @override
+  int compareTo(other) {
+    if (this.conference == "West" && other.conference == "East") {
+      return 0;
+    }
+
+    return 1;
+  }
 }

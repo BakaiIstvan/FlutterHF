@@ -8,8 +8,8 @@ class PlayerInteractor {
       this._playerNetworkDataSource
       );
 
-  Future<List<Player>> getPlayers() async {
-    return await _playerNetworkDataSource.getPlayers() ?? [];
+  Future<List<Player>> getPlayers(int per_page, int page) async {
+    return await _playerNetworkDataSource.getPlayers(per_page, page) ?? [];
   }
 
   Future<Player?> getPlayerById(int id) async {

@@ -13,13 +13,13 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
   @override
   Stream<TeamListState> mapEventToState(TeamListEvent event) async* {
     if (event is LoadTeamsEvent) {
-      yield* _mapLoadTeamsToState();
+      yield* _mapLoadTeamsToState(event.western);
     } else if (event is RefreshTeamsEvent) {
-      yield* _mapRefreshTeamsEvent();
+      yield* _mapRefreshTeamsEvent(event.western);
     }
   }
 
-  Stream<TeamListState> _mapLoadTeamsToState() async* {
+  Stream<TeamListState> _mapLoadTeamsToState(bool western) async* {
     try {
       print("Refreshing Teams");
       await _teamInteractor.getTeams();
@@ -28,19 +28,31 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
       yield Error(teams: []);
     }
 
-    print("Getting Teams from API");
+    print("Load - Getting Teams from API");
     final teams = await _teamInteractor.getTeams();
+    if (western) {
+      teams.sort((a, b) { return a.compareTo(b); });
+    } else {
+      teams.sort((a,b) { return a.compareTo(b) ^ 1; });
+    }
 
-    print("Articles refreshed, sending Content state with Team list");
+    print("Teams refreshed, sending Content state with Team list");
     yield ContentReady(teams: teams);
   }
 
-  Stream<TeamListState> _mapRefreshTeamsEvent() async* {
+  Stream<TeamListState> _mapRefreshTeamsEvent(bool western) async* {
     final currentState = state;
     if (!(currentState is Refreshing)) {
       if (currentState is Content) {
         print("Teams refreshing requested");
-        yield Refreshing(teams: currentState.teams);
+        final teams = currentState.teams;
+        if (western) {
+          teams.sort((a, b) { return a.compareTo(b); });
+        } else {
+          teams.sort((a,b) { return a.compareTo(b) ^ 1; });
+        }
+
+        yield Refreshing(teams: teams);
 
         try {
           print("Refreshing Teams");
@@ -53,8 +65,13 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
       }
     }
 
-    print("Getting Teams from API");
+    print("Refresh - Getting Teams from API");
     final teams = await _teamInteractor.getTeams();
+    if (western) {
+      teams.sort((a, b) { return a.compareTo(b); });
+    } else {
+      teams.sort((a,b) { return a.compareTo(b) ^ 1; });
+    }
 
     yield ContentReady(teams: teams);
   }

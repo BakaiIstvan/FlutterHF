@@ -32,9 +32,12 @@ class _NbaService implements NbaService {
   }
 
   @override
-  Future<HttpResponse<NetworkPlayersReply>> getPlayers() async {
+  Future<HttpResponse<NetworkPlayersReply>> getPlayers(per_page, page) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'per_page': per_page,
+      r'page': page
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<NetworkPlayersReply>>(

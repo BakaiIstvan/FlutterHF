@@ -6,17 +6,13 @@ abstract class TeamListEvent {
 }
 
 class LoadTeamsEvent extends TeamListEvent {
-  static final LoadTeamsEvent _instance = LoadTeamsEvent._();
+  final bool western;
 
-  factory LoadTeamsEvent() => _instance;
-
-  LoadTeamsEvent._();
+  LoadTeamsEvent(this.western);
 }
 
 class RefreshTeamsEvent extends TeamListEvent {
-  static final RefreshTeamsEvent _instance = RefreshTeamsEvent._();
+  final bool western;
 
-  factory RefreshTeamsEvent() => _instance;
-
-  RefreshTeamsEvent._();
+  RefreshTeamsEvent(this.western);
 }
