@@ -12,9 +12,9 @@ NetworkPlayer _$NetworkPlayerFromJson(Map<String, dynamic> json) {
     json['first_name'] as String,
     json['last_name'] as String,
     json['position'] as String,
-    json['height_feet'] as int,
-    json['height_inches'] as int,
-    json['weight_pounds'] as int,
+    json['height_feet'] as int?,
+    json['height_inches'] as int?,
+    json['weight_pounds'] as int?,
     NetworkTeam.fromJson(json['team'] as Map<String, dynamic>),
   );
 }

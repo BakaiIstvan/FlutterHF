@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:nba_app/domain/model/player.dart';
 import 'package:nba_app/domain/model/team.dart';
 
 @immutable
@@ -25,9 +26,11 @@ class Error extends TeamDetailsState {
 
 class ContentReady extends TeamDetailsState with EquatableMixin {
   final Team team;
+  final List<Player> players;
 
-  ContentReady({required this.team});
+  ContentReady({required this.team,
+                required this.players});
 
   @override
-  List<Object> get props => [team];
+  List<Object> get props => [team, players];
 }

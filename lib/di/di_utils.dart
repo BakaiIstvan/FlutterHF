@@ -61,7 +61,7 @@ void initDependencies() {
 
   injector.registerFactory(
         () => TeamDetailsBloc(
-      injector<TeamInteractor>(),
+      injector<TeamInteractor>(), injector<PlayerInteractor>(),
     ),
   );
 }

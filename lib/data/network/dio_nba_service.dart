@@ -31,7 +31,8 @@ abstract class NbaService implements NbaApi {
 
   @override
   @GET("/api/v1/players")
-  Future<HttpResponse<NetworkPlayersReply>> getPlayers();
+  Future<HttpResponse<NetworkPlayersReply>> getPlayers(@Query("per_page") int per_page,
+                                                       @Query("page") int page);
 
   @override
   @GET("/api/v1/teams/{id}")

@@ -8,9 +8,9 @@ class Player extends Equatable {
   final String firstName;
   final String lastName;
   final String position;
-  final int heightFeet;
-  final int heightInches;
-  final int weightPounds;
+  final int? heightFeet;
+  final int? heightInches;
+  final int? weightPounds;
   final Team team;
 
   const Player({
@@ -18,9 +18,9 @@ class Player extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.position,
-    required this.heightFeet,
-    required this.heightInches,
-    required this.weightPounds,
+    this.heightFeet,
+    this.heightInches,
+    this.weightPounds,
     required this.team,
   });
 

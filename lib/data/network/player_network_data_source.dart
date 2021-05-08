@@ -8,8 +8,8 @@ class PlayerNetworkDataSource {
 
   PlayerNetworkDataSource(this._nbaApi);
 
-  Future<List<Player>?> getPlayers() async {
-    final networkResponse = await _nbaApi.getPlayers();
+  Future<List<Player>?> getPlayers(int per_page, int page) async {
+    final networkResponse = await _nbaApi.getPlayers(per_page, page);
 
     if (networkResponse.response.statusCode != 200) return null;
 
