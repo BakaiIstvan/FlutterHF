@@ -22,6 +22,14 @@ class TeamDetailsBloc extends Bloc<TeamDetailsEvent, TeamDetailsState> {
   }
 
   Stream<TeamDetailsState> _mapLoadTeamToState(LoadTeamEvent event) async* {
+    try {
+      print("Querrying Team");
+      await _teamInteractor.getTeamById(event.id);
+    } on Exception catch (e) {
+      print("Querry failed, reason: ${e.toString()}");
+      yield Error();
+    }
+
     print("Fetching Team from API with id: ${event.id}");
     final team = await _teamInteractor.getTeamById(event.id);
     List<Player> players = [];
