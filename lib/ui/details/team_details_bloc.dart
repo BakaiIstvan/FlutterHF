@@ -29,7 +29,7 @@ class TeamDetailsBloc extends Bloc<TeamDetailsEvent, TeamDetailsState> {
       final playersPage = await _playerInteractor.getPlayers(100, i);
       players.addAll(playersPage);
     }
-    final teamPlayers = players.where((player) => player.team.id == team?.id).toList();
+    final teamPlayers = players.where((player) => player.team.id == team?.id).toSet().toList();
 
     if(team != null) {
       print("Team fetched, sending ContentReady state with Team");
