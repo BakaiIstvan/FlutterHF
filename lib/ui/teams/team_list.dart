@@ -15,32 +15,28 @@ class TeamListPage extends StatefulWidget {
 class _TeamListPage extends State<TeamListPage> {
   bool western = true;
 
+  late BuildContext _context;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("NBA Teams"),
         actions: [
-          BlocProvider(
-            create: (context) => injector<TeamListBloc>(),
-            child: BlocBuilder<TeamListBloc, TeamListState>(
-              builder: (context, state) {
-                return TextButton(
-                  child: western ? Text('Western Conference') : Text(
-                      'Eastern Conference'),
-                  onPressed: () {
-                    setState(() {
-                      western = !western;
-                    });
-                    BlocProvider.of<TeamListBloc>(context)
-                        .add(RefreshTeamsEvent(western));
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
-                );
-              },
+          TextButton(
+            child: western
+                ? Text('Western Conference')
+                : Text('Eastern Conference'),
+            onPressed: () async {
+              setState(() {
+                western = !western;
+              });
+              BlocProvider.of<TeamListBloc>(_context)
+                  .add(RefreshTeamsEvent(western));
+            },
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              textStyle: TextStyle(fontSize: 18),
             ),
           ),
         ],
@@ -64,6 +60,7 @@ class _TeamListPage extends State<TeamListPage> {
               }
 
               if (state is Content) {
+                _context = context;
                 return TeamListContent(state, western);
               }
 

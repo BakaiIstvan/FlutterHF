@@ -45,7 +45,14 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
     if (!(currentState is Refreshing)) {
       if (currentState is Content) {
         print("Teams refreshing requested");
-        yield Refreshing(teams: currentState.teams);
+        final teams = currentState.teams;
+        if (western) {
+          teams.sort((a, b) { return a.compareTo(b); });
+        } else {
+          teams.sort((a,b) { return a.compareTo(b) ^ 1; });
+        }
+
+        yield Refreshing(teams: teams);
 
         try {
           print("Refreshing Teams");

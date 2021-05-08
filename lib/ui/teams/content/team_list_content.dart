@@ -31,6 +31,12 @@ class _TeamListContentState extends State<TeamListContent> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    state.teams.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<TeamListBloc, TeamListState>(
       listener: (_, state) {
@@ -45,9 +51,9 @@ class _TeamListContentState extends State<TeamListContent> {
           return _refreshCompleter.future;
         },
         child: ListView.builder(
-          itemCount: state.teams.length,
+          itemCount: widget.state.teams.length,
           itemBuilder: (context, index) {
-            final item = state.teams[index];
+            final item = widget.state.teams[index];
             return InkWell(
               onTap: () {
                 Navigator.pushNamed(
