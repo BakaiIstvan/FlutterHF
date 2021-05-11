@@ -30,11 +30,6 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
 
     print("Load - Getting Teams from API");
     final teams = await _teamInteractor.getTeams();
-    if (western) {
-      teams.sort((a, b) { return a.compareTo(b); });
-    } else {
-      teams.sort((a,b) { return a.compareTo(b) ^ 1; });
-    }
 
     print("Teams refreshed, sending Content state with Team list");
     yield ContentReady(teams: teams);
@@ -46,11 +41,6 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
       if (currentState is Content) {
         print("Teams refreshing requested");
         final teams = currentState.teams;
-        if (western) {
-          teams.sort((a, b) { return a.compareTo(b); });
-        } else {
-          teams.sort((a,b) { return a.compareTo(b) ^ 1; });
-        }
 
         yield Refreshing(teams: teams);
 
@@ -67,11 +57,6 @@ class TeamListBloc extends Bloc<TeamListEvent, TeamListState> {
 
     print("Refresh - Getting Teams from API");
     final teams = await _teamInteractor.getTeams();
-    if (western) {
-      teams.sort((a, b) { return a.compareTo(b); });
-    } else {
-      teams.sort((a,b) { return a.compareTo(b) ^ 1; });
-    }
 
     yield ContentReady(teams: teams);
   }

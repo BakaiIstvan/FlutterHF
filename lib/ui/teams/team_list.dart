@@ -61,6 +61,11 @@ class _TeamListPage extends State<TeamListPage> {
 
               if (state is Content) {
                 _context = context;
+                if (western) {
+                  state.teams.sort((a, b) { return a.compareTo(b); });
+                } else {
+                  state.teams.sort((a,b) { return a.compareTo(b) ^ 1; });
+                }
                 return TeamListContent(state, western);
               }
 
